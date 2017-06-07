@@ -16,67 +16,34 @@
 
 package com.android.example.github.ui.search;
 
-import com.android.example.github.R;
-import com.android.example.github.binding.FragmentDataBindingComponent;
-import com.android.example.github.databinding.SearchFragmentBinding;
-import com.android.example.github.di.Injectable;
-import com.android.example.github.ui.common.NavigationController;
-import com.android.example.github.ui.common.RepoListAdapter;
-import com.android.example.github.util.AutoClearedValue;
-
-import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.databinding.DataBindingComponent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-
+import com.android.example.github.R;
+import com.android.example.github.databinding.SearchFragmentBinding;
+import com.android.example.github.ui.BaseFragment;
+import com.android.example.github.ui.common.NavigationController;
+import com.android.example.github.ui.common.RepoListAdapter;
+import com.android.example.github.util.AutoClearedValue;
 import javax.inject.Inject;
 
-public class SearchFragment extends LifecycleFragment implements Injectable {
-
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
-
+public class SearchFragment extends BaseFragment<SearchFragmentBinding> {
     @Inject
     NavigationController navigationController;
-
-    DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
-
-    AutoClearedValue<SearchFragmentBinding> binding;
-
     AutoClearedValue<RepoListAdapter> adapter;
-
     private SearchViewModel searchViewModel;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        SearchFragmentBinding dataBinding = DataBindingUtil
-                .inflate(inflater, R.layout.search_fragment, container, false,
-                        dataBindingComponent);
-        binding = new AutoClearedValue<>(this, dataBinding);
-        return dataBinding.getRoot();
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         searchViewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel.class);
+
         initRecyclerView();
         RepoListAdapter rvAdapter = new RepoListAdapter(dataBindingComponent, true,
                 repo -> navigationController.navigateToRepo(repo.owner.login, repo.name));
@@ -150,12 +117,13 @@ public class SearchFragment extends LifecycleFragment implements Injectable {
         });
     }
 
-    private void dismissKeyboard(IBinder windowToken) {
-        FragmentActivity activity = getActivity();
-        if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(windowToken, 0);
-        }
+    @Override
+    public void initView(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public int resID() {
+        return R.layout.search_fragment;
     }
 }

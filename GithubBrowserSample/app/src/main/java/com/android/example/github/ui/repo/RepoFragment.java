@@ -20,6 +20,7 @@ import com.android.example.github.R;
 import com.android.example.github.binding.FragmentDataBindingComponent;
 import com.android.example.github.databinding.RepoFragmentBinding;
 import com.android.example.github.di.Injectable;
+import com.android.example.github.ui.BaseFragment;
 import com.android.example.github.ui.common.NavigationController;
 import com.android.example.github.util.AutoClearedValue;
 import com.android.example.github.vo.Repo;
@@ -46,30 +47,14 @@ import javax.inject.Inject;
 /**
  * The UI Controller for displaying a Github Repo's information with its contributors.
  */
-public class RepoFragment extends Fragment implements LifecycleRegistryOwner, Injectable {
+public class RepoFragment extends BaseFragment<RepoFragmentBinding> {
 
     private static final String REPO_OWNER_KEY = "repo_owner";
-
     private static final String REPO_NAME_KEY = "repo_name";
-
-    private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
-
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
-
     private RepoViewModel repoViewModel;
-
     @Inject
     NavigationController navigationController;
-
-    DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
-    AutoClearedValue<RepoFragmentBinding> binding;
     AutoClearedValue<ContributorAdapter> adapter;
-
-    @Override
-    public LifecycleRegistry getLifecycle() {
-        return lifecycleRegistry;
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -110,17 +95,6 @@ public class RepoFragment extends Fragment implements LifecycleRegistryOwner, In
         });
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        RepoFragmentBinding dataBinding = DataBindingUtil
-                .inflate(inflater, R.layout.repo_fragment, container, false);
-        dataBinding.setRetryCallback(() -> repoViewModel.retry());
-        binding = new AutoClearedValue<>(this, dataBinding);
-        return dataBinding.getRoot();
-    }
-
     public static RepoFragment create(String owner, String name) {
         RepoFragment repoFragment = new RepoFragment();
         Bundle args = new Bundle();
@@ -128,5 +102,15 @@ public class RepoFragment extends Fragment implements LifecycleRegistryOwner, In
         args.putString(REPO_NAME_KEY, name);
         repoFragment.setArguments(args);
         return repoFragment;
+    }
+
+    @Override
+    public void initView(@Nullable Bundle savedInstanceState) {
+        binding.get().setRetryCallback(() -> repoViewModel.retry());
+    }
+
+    @Override
+    public int resID() {
+        return R.layout.repo_fragment;
     }
 }

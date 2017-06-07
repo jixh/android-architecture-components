@@ -16,6 +16,7 @@
 
 package com.android.example.github;
 
+import com.android.example.github.ui.BaseActivity;
 import com.android.example.github.ui.common.NavigationController;
 
 import android.arch.lifecycle.LifecycleRegistry;
@@ -30,30 +31,20 @@ import javax.inject.Inject;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends AppCompatActivity implements LifecycleRegistryOwner,
-        HasSupportFragmentInjector {
-    private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
-    @Inject
-    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+public class MainActivity extends BaseActivity {
+
     @Inject
     NavigationController navigationController;
 
     @Override
-    public LifecycleRegistry getLifecycle() {
-        return lifecycleRegistry;
+    public int resID() {
+        return R.layout.main_activity;
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+    public void initView(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             navigationController.navigateToSearch();
         }
-    }
-
-    @Override
-    public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
-        return dispatchingAndroidInjector;
     }
 }
