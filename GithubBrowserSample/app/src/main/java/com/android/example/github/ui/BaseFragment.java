@@ -2,10 +2,7 @@ package com.android.example.github.ui;
 
 import android.app.Activity;
 import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
@@ -13,8 +10,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,19 +29,19 @@ import javax.inject.Inject;
 public abstract class BaseFragment< T extends ViewDataBinding> extends LifecycleFragment implements Injectable, IBaseView {
 
     @Inject
-    protected ViewModelProvider.Factory viewModelFactory;
+    public ViewModelProvider.Factory viewModelFactory;
 
     protected Activity activity;
 
-    protected DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
-    protected AutoClearedValue<T> binding;
+    public DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
+    public AutoClearedValue<T> binding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         T dataBinding = DataBindingUtil
-                .inflate(inflater, resID(), container, false,
+                .inflate(inflater, layoutId(), container, false,
                         dataBindingComponent);
         binding = new AutoClearedValue<>(this, dataBinding);
 

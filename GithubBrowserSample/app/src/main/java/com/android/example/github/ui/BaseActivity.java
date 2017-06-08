@@ -2,13 +2,15 @@ package com.android.example.github.ui;
 
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.inputmethod.InputMethodManager;
 
 import javax.inject.Inject;
-
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 
@@ -22,7 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(resID());
+        setContentView(layoutId());
         initView(savedInstanceState);
     }
 
@@ -40,4 +42,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         return dispatchingAndroidInjector;
     }
 
+    protected void dismissKeyboard(IBinder windowToken) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(windowToken, 0);
+    }
 }

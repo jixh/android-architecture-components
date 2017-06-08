@@ -123,7 +123,7 @@ public class SearchFragment extends BaseFragment<SearchFragmentBinding> {
     }
 
     @Override
-    public int resID() {
+    public int layoutId() {
         return R.layout.search_fragment;
     }
 }

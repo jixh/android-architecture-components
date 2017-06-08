@@ -29,7 +29,7 @@ buildscript {
     }
 }
 
-ext.arch_version = "1.0.0-alpha1"
+ext.arch_version = "1.0.0-alpha2"
 ext.support_version = "25.3.1"
 ext.dagger_version = "2.11-rc2"
 ext.junit_version = "4.12"
@@ -41,6 +41,15 @@ ext.mockito_version = "2.7.19"
 ext.constraint_layout_version = "1.0.2"
 ext.glide_version = "3.7.0"
 ext.timber_version = "4.5.1"
+ext.logging_interceptor_version = "3.8.0"
+
+
+ext{
+    compileSdkVersion = 25
+    buildToolsVersion ="25.0.2"
+    minSdkVersion = 14
+    targetSdkVersion =25
+}
 
 allprojects {
     repositories {

@@ -110,7 +110,7 @@ public class RepoFragment extends BaseFragment<RepoFragmentBinding> {
     }
 
     @Override
-    public int resID() {
+    public int layoutId() {
         return R.layout.repo_fragment;
     }
 }

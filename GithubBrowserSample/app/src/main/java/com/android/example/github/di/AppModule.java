@@ -18,30 +18,53 @@ package com.android.example.github.di;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
-
 import com.android.example.github.api.GithubService;
 import com.android.example.github.db.GithubDb;
 import com.android.example.github.db.RepoDao;
 import com.android.example.github.db.UserDao;
 import com.android.example.github.util.LiveDataCallAdapterFactory;
-
+import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = ViewModelModule.class)
 class AppModule {
     @Singleton @Provides
-    GithubService provideGithubService() {
+    GithubService provideGithubService(OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .build()
                 .create(GithubService.class);
+    }
+
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient() {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        Interceptor apikey = chain -> chain.proceed(chain.request().newBuilder()
+                .addHeader("token", "").build());
+
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(30, TimeUnit.MILLISECONDS)
+                .connectTimeout(30, TimeUnit.MILLISECONDS)
+                .addInterceptor(apikey)
+                .addInterceptor(loggingInterceptor)
+                .build();
+
+        return okHttpClient;
     }
 
     @Singleton @Provides

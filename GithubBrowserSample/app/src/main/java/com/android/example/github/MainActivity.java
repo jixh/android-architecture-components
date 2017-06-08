@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
     NavigationController navigationController;
 
     @Override
-    public int resID() {
+    public int layoutId() {
         return R.layout.main_activity;
     }
 
