@@ -20,6 +20,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    lintOptions {
+        lintConfig rootProject.file('lint.xml')
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -31,6 +43,28 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "com.android.support:cardview-v7:$support_version"
     compile "com.android.support:design:$support_version"
-    implementation 'com.android.support:appcompat-v7:25.3.1'
+    compile "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+
+    compile "android.arch.persistence.room:runtime:$arch_version"
+    compile "android.arch.lifecycle:runtime:$arch_version"
+    compile "android.arch.lifecycle:extensions:$arch_version"
+
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    compile "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+    compile "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    compile "io.reactivex.rxjava2:rxjava:$rx_version"
+
+    compile "com.github.bumptech.glide:glide:$glide_version"
+
+
+
+
+    compile "com.jakewharton.timber:timber:$timber_version"
+
+    annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
+
+    implementation "com.android.support:appcompat-v7:$support_version"
     testImplementation 'junit:junit:4.12'
 }

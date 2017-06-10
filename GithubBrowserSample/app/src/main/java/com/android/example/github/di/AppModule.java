@@ -18,6 +18,7 @@ package com.android.example.github.di;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
+import android.util.Log;
 import com.android.example.github.api.GithubService;
 import com.android.example.github.db.GithubDb;
 import com.android.example.github.db.RepoDao;
@@ -32,6 +33,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 @Module(includes = ViewModelModule.class)
 class AppModule {
@@ -50,21 +52,30 @@ class AppModule {
     @Provides
     @Singleton
     OkHttpClient provideOkHttpClient() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> Log.i("http",message));
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        Interceptor apikey = chain -> chain.proceed(chain.request().newBuilder()
-                .addHeader("token", "").build());
+        Interceptor apikey = chain
+                ->
+                chain.proceed(chain.request()
+                        .newBuilder()
+                        .addHeader("token", "")
+                        .build());
 
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(30, TimeUnit.MILLISECONDS)
-                .connectTimeout(30, TimeUnit.MILLISECONDS)
+        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder()
+                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(apikey)
-                .addInterceptor(loggingInterceptor)
-                .build();
+                .addInterceptor(loggingInterceptor);
 
-        return okHttpClient;
+//        final @Nullable File baseDir = CacheUtils.getCacheDir();
+//        if (baseDir != null){
+//            final File cacheDir = new File(baseDir, "HttpResponseCache");
+//            okHttpClientBuilder.cache(new Cache(cacheDir, HTTP_RESPONSE_DISK_CACHE_MAX_SIZE));
+//        }
+
+        return okHttpClientBuilder.build();
     }
 
     @Singleton @Provides

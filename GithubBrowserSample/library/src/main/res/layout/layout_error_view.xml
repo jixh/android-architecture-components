@@ -5,7 +5,7 @@
 
     <TextView
         android:textSize="16sp"
-        android:text="出错了"
+        android:text="@string/error"
         android:id="@+id/tv_error"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"

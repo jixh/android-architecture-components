@@ -29,19 +29,24 @@ buildscript {
     }
 }
 
-ext.arch_version = "1.0.0-alpha2"
-ext.support_version = "25.3.1"
-ext.dagger_version = "2.11-rc2"
-ext.junit_version = "4.12"
-ext.espresso_version = "2.2.2"
-ext.retrofit_version = "2.2.0"
-ext.mockwebserver_version = "3.6.0"
-ext.apache_commons_version = "2.5"
-ext.mockito_version = "2.7.19"
-ext.constraint_layout_version = "1.0.2"
-ext.glide_version = "3.7.0"
-ext.timber_version = "4.5.1"
-ext.logging_interceptor_version = "3.8.0"
+ext{
+    arch_version = "1.0.0-alpha2"
+    support_version = "25.3.1"
+    dagger_version = "2.11"
+    junit_version = "4.12"
+    espresso_version = "2.2.2"
+    retrofit_version = "2.2.0"
+    mockwebserver_version = "3.6.0"
+    apache_commons_version = "2.5"
+    mockito_version = "2.7.19"
+    constraint_layout_version = "1.0.2"
+    glide_version = "3.7.0"
+    timber_version = "4.5.1"
+    logging_interceptor_version = "3.8.0"
+    rx_android_version = "2.0.1"
+    rx_version = "2.1.0"
+}
+
 
 
 ext{

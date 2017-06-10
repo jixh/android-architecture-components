@@ -65,6 +65,8 @@ The project uses [MockWebServer][mockwebserver] project to test REST api interac
 * [Timber][timber] for logging
 * [espresso][espresso] for UI tests
 * [mockito][mockito] for mocking in tests
+* [rxAndroid][RxAndroid]
+* [logging_interceptor_version][logging_interceptor_version]
 
 
 [mockwebserver]: https://github.com/square/okhttp/tree/master/mockwebserver
@@ -77,3 +79,5 @@ The project uses [MockWebServer][mockwebserver] project to test REST api interac
 [glide]: https://github.com/bumptech/glide
 [timber]: https://github.com/JakeWharton/timber
 [mockito]: http://site.mockito.org
+[RxAndroid]: https://github.com/ReactiveX/RxAndroid
+[logging_interceptor_version]: https://github.com/ReactiveX/RxAndroid

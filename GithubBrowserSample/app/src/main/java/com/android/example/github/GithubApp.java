@@ -17,6 +17,7 @@
 package com.android.example.github;
 
 import com.android.example.github.di.AppInjector;
+import com.jktaihe.library.Constant;
 
 import android.app.Activity;
 import android.app.Application;
@@ -40,6 +41,7 @@ public class GithubApp extends Application implements HasActivityInjector {
             Timber.plant(new Timber.DebugTree());
         }
         AppInjector.init(this);
+        Constant.appContext = this.getApplicationContext();
     }
 
     @Override
