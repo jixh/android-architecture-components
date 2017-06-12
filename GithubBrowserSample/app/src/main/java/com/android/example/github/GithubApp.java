@@ -18,6 +18,7 @@ package com.android.example.github;
 
 import com.android.example.github.di.AppInjector;
 import com.jktaihe.library.Constant;
+import com.jktaihe.library.APIHOST;
 
 import android.app.Activity;
 import android.app.Application;
@@ -37,6 +38,7 @@ public class GithubApp extends Application implements HasActivityInjector {
     @Override
     public void onCreate() {
         super.onCreate();
+        APIHOST.HOST = BuildConfig.HOST_API;
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }

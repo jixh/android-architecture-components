@@ -13,4 +13,7 @@ public class Constant {
 
     public static final int HTTP_RESPONSE_DISK_CACHE_MAX_SIZE = 10 * 1024 * 1024;
 
+    public static final String BASE_HOST = APIHOST.HOST;
+
 }
+

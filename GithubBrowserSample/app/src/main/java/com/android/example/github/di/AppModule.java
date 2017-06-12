@@ -24,6 +24,8 @@ import com.android.example.github.db.GithubDb;
 import com.android.example.github.db.RepoDao;
 import com.android.example.github.db.UserDao;
 import com.android.example.github.util.LiveDataCallAdapterFactory;
+import com.jktaihe.library.Constant;
+
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 import dagger.Module;
@@ -40,14 +42,13 @@ class AppModule {
     @Singleton @Provides
     GithubService provideGithubService(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl(Constant.BASE_HOST)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .build()
                 .create(GithubService.class);
     }
-
 
     @Provides
     @Singleton

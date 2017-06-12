@@ -10,6 +10,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public abstract class BaseFragment< T extends ViewDataBinding> extends Lifecycle
     @Inject
     public ViewModelProvider.Factory viewModelFactory;
 
-    protected Activity activity;
+    protected AppCompatActivity activity;
 
     public DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     public AutoClearedValue<T> binding;
@@ -45,18 +46,21 @@ public abstract class BaseFragment< T extends ViewDataBinding> extends Lifecycle
                         dataBindingComponent);
         binding = new AutoClearedValue<>(this, dataBinding);
 
-        initView(savedInstanceState);
-
         return dataBinding.getRoot();
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initView(savedInstanceState);
+    }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof Activity){
-            activity = (Activity) context;
+            activity = (AppCompatActivity) context;
         }
     }
 
