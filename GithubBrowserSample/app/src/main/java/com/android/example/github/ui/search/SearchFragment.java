@@ -16,7 +16,6 @@
 
 package com.android.example.github.ui.search;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -27,33 +26,16 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import com.android.example.github.R;
 import com.android.example.github.databinding.SearchFragmentBinding;
-import com.android.example.github.ui.BaseFragment;
+import com.android.example.github.ui.LifecycleFragment;
 import com.android.example.github.ui.common.NavigationController;
 import com.android.example.github.ui.common.RepoListAdapter;
 import com.android.example.github.util.AutoClearedValue;
 import javax.inject.Inject;
 
-public class SearchFragment extends BaseFragment<SearchFragmentBinding> {
+public class SearchFragment extends LifecycleFragment<SearchViewModel,SearchFragmentBinding> {
     @Inject
     NavigationController navigationController;
     AutoClearedValue<RepoListAdapter> adapter;
-    private SearchViewModel searchViewModel;
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        searchViewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel.class);
-
-        initRecyclerView();
-        RepoListAdapter rvAdapter = new RepoListAdapter(dataBindingComponent, true,
-                repo -> navigationController.navigateToRepo(repo.owner.login, repo.name));
-        binding.get().repoList.setAdapter(rvAdapter);
-        adapter = new AutoClearedValue<>(this, rvAdapter);
-
-        initSearchInputListener();
-
-        binding.get().setCallback(() -> searchViewModel.refresh());
-    }
 
     private void initSearchInputListener() {
         binding.get().input.setOnEditorActionListener((v, actionId, event) -> {
@@ -78,7 +60,7 @@ public class SearchFragment extends BaseFragment<SearchFragmentBinding> {
         // Dismiss keyboard
         dismissKeyboard(v.getWindowToken());
         binding.get().setQuery(query);
-        searchViewModel.setQuery(query);
+        viewModel.setQuery(query);
     }
 
     private void initRecyclerView() {
@@ -91,11 +73,12 @@ public class SearchFragment extends BaseFragment<SearchFragmentBinding> {
                 int lastPosition = layoutManager
                         .findLastVisibleItemPosition();
                 if (lastPosition == adapter.get().getItemCount() - 1) {
-                    searchViewModel.loadNextPage();
+                    viewModel.loadNextPage();
                 }
             }
         });
-        searchViewModel.getResults().observe(this, result -> {
+
+        viewModel.getResults().observe(this, result -> {
             binding.get().setSearchResource(result);
             binding.get().setResultCount((result == null || result.data == null)
                     ? 0 : result.data.size());
@@ -103,7 +86,7 @@ public class SearchFragment extends BaseFragment<SearchFragmentBinding> {
             binding.get().executePendingBindings();
         });
 
-        searchViewModel.getLoadMoreStatus().observe(this, loadingMore -> {
+        viewModel.getLoadMoreStatus().observe(this, loadingMore -> {
             if (loadingMore == null) {
                 binding.get().setLoadingMore(false);
             } else {
@@ -119,11 +102,20 @@ public class SearchFragment extends BaseFragment<SearchFragmentBinding> {
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
+        initRecyclerView();
+        RepoListAdapter rvAdapter = new RepoListAdapter(dataBindingComponent, true,
+                repo -> navigationController.navigateToRepo(repo.owner.login, repo.name));
+        binding.get().repoList.setAdapter(rvAdapter);
+        adapter = new AutoClearedValue<>(this, rvAdapter);
 
+        initSearchInputListener();
+
+        binding.get().setCallback(() -> viewModel.refresh());
     }
 
     @Override
     public int layoutId() {
         return R.layout.search_fragment;
     }
+
 }

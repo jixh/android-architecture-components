@@ -1,17 +1,18 @@
-package com.android.example.github.ui;
+package com.jktaihe.library.ui;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 
 /**
- * Created by jktaihe on 7/6/17.
+ * Created by jktaihe on 13/6/17.
  * blog: blog.jktaihe.com
  */
 
-public interface IBaseView {
+public interface IView {
+
     void initView(@Nullable Bundle savedInstanceState);
-    @LayoutRes
-    int layoutId();
+
+    @LayoutRes int layoutId();
+
 }

@@ -16,35 +16,28 @@
 
 package com.android.example.github;
 
-import com.android.example.github.ui.BaseActivity;
+import com.android.example.github.ui.LifecycleActivity;
 import com.android.example.github.ui.common.NavigationController;
 
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
-
-public class MainActivity extends BaseActivity {
+public class MainActivity extends LifecycleActivity {
 
     @Inject
     NavigationController navigationController;
-
-    @Override
-    public int layoutId() {
-        return R.layout.main_activity;
-    }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             navigationController.navigateToSearch();
         }
+    }
+
+    @Override
+    public int layoutId() {
+        return R.layout.main_activity;
     }
 }

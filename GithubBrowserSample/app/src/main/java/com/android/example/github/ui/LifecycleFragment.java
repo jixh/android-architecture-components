@@ -1,25 +1,26 @@
 package com.android.example.github.ui;
 
 import android.app.Activity;
-import android.arch.lifecycle.LifecycleFragment;
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingComponent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-
 import com.android.example.github.binding.FragmentDataBindingComponent;
 import com.android.example.github.di.Injectable;
 import com.android.example.github.util.AutoClearedValue;
-
+import com.jktaihe.library.ui.BaseFragment;
+import com.jktaihe.library.utils.ClassUtils;
 import javax.inject.Inject;
 
 /**
@@ -27,7 +28,7 @@ import javax.inject.Inject;
  * blog: blog.jktaihe.com
  */
 
-public abstract class BaseFragment< T extends ViewDataBinding> extends LifecycleFragment implements Injectable, IBaseView {
+public abstract class LifecycleFragment<M extends ViewModel, T extends ViewDataBinding> extends BaseFragment implements Injectable, LifecycleRegistryOwner {
 
     @Inject
     public ViewModelProvider.Factory viewModelFactory;
@@ -36,6 +37,13 @@ public abstract class BaseFragment< T extends ViewDataBinding> extends Lifecycle
 
     public DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     public AutoClearedValue<T> binding;
+    public M viewModel;
+
+    LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
+
+    public LifecycleRegistry getLifecycle() {
+        return this.mLifecycleRegistry;
+    }
 
     @Nullable
     @Override
@@ -52,6 +60,7 @@ public abstract class BaseFragment< T extends ViewDataBinding> extends Lifecycle
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ClassUtils.getClass(getClass()));
         initView(savedInstanceState);
     }
 
@@ -64,19 +73,12 @@ public abstract class BaseFragment< T extends ViewDataBinding> extends Lifecycle
         }
     }
 
-
     @Override
     public void onDetach() {
         super.onDetach();
         activity = null;
     }
 
-    protected void dismissKeyboard(IBinder windowToken) {
-        if (activity != null) {
-            InputMethodManager imm = (InputMethodManager) activity.getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(windowToken, 0);
-        }
-    }
+
 
 }

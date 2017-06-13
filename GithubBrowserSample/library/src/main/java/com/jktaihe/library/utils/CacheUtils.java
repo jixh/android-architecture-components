@@ -1,4 +1,4 @@
-package com.android.example.github.util;
+package com.jktaihe.library.utils;
 
 import com.jktaihe.library.Constant;
 
