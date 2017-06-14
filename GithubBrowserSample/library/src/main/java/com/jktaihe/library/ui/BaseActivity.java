@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
  */
 
 public abstract class BaseActivity extends AppCompatActivity implements IView{
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

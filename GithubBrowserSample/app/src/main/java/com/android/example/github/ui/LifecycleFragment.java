@@ -32,15 +32,11 @@ public abstract class LifecycleFragment<M extends ViewModel, T extends ViewDataB
 
     @Inject
     public ViewModelProvider.Factory viewModelFactory;
-
-    protected AppCompatActivity activity;
-
     public DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     public AutoClearedValue<T> binding;
     public M viewModel;
 
-    LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
-
+    private final LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
     public LifecycleRegistry getLifecycle() {
         return this.mLifecycleRegistry;
     }
@@ -63,22 +59,5 @@ public abstract class LifecycleFragment<M extends ViewModel, T extends ViewDataB
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ClassUtils.getClass(getClass()));
         initView(savedInstanceState);
     }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof Activity){
-            activity = (AppCompatActivity) context;
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        activity = null;
-    }
-
-
 
 }
