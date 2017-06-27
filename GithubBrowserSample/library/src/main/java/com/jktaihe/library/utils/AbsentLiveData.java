@@ -14,29 +14,19 @@
  * limitations under the License.
  */
 
-package com.android.example.github.binding;
+package com.jktaihe.library.utils;
 
-import android.app.Activity;
-import android.databinding.BindingAdapter;
-import android.support.v4.app.Fragment;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-
-import javax.inject.Inject;
+import android.arch.lifecycle.LiveData;
 
 /**
- * Binding adapters that work with a fragment instance.
+ * A LiveData class that has {@code null} value.
  */
-public class ActivityBindingAdapters {
-    final Activity activity;
-
-    @Inject
-    public ActivityBindingAdapters(Activity activity) {
-        this.activity = activity;
+public class AbsentLiveData extends LiveData {
+    private AbsentLiveData() {
+        postValue(null);
     }
-    @BindingAdapter("imageUrl")
-    public void bindImage(ImageView imageView, String url) {
-        Glide.with(activity).load(url).into(imageView);
+    public static <T> LiveData<T> create() {
+        //noinspection unchecked
+        return new AbsentLiveData();
     }
 }

@@ -16,51 +16,32 @@
 
 package com.android.example.github.ui.user;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.databinding.DataBindingComponent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import com.android.example.github.R;
-import com.android.example.github.binding.FragmentDataBindingComponent;
 import com.android.example.github.databinding.UserFragmentBinding;
-import com.android.example.github.ui.LifecycleFragment;
+import com.android.example.github.ui.DataBindFragment;
 import com.android.example.github.ui.common.NavigationController;
 import com.android.example.github.ui.common.RepoListAdapter;
-import com.android.example.github.util.AutoClearedValue;
+import com.jktaihe.library.utils.AutoClearedValue;
+
 import javax.inject.Inject;
 
-public class UserFragment extends LifecycleFragment<UserViewModel,UserFragmentBinding> {
+public class UserFragment extends DataBindFragment<UserViewModel,UserFragmentBinding> {
+
     private static final String LOGIN_KEY = "login";
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
+
     @Inject
     NavigationController navigationController;
 
-    DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     private AutoClearedValue<RepoListAdapter> adapter;
 
-    public static UserFragment create(String login) {
-        UserFragment userFragment = new UserFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(LOGIN_KEY, login);
-        userFragment.setArguments(bundle);
-        return userFragment;
-    }
-
-    private void initRepoList() {
-        viewModel.getRepositories().observe(this, repos -> {
-            // no null checks for adapter.get() since LiveData guarantees that we'll not receive
-            // the event if fragment is now show.
-            if (repos == null) {
-                adapter.get().replace(null);
-            } else {
-                adapter.get().replace(repos.data);
-            }
-        });
-    }
 
     @Override
-    public void initView(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         binding.get().setRetryCallback(()->viewModel.retry());
 
         viewModel.setLogin(getArguments().getString(LOGIN_KEY));
@@ -75,10 +56,33 @@ public class UserFragment extends LifecycleFragment<UserViewModel,UserFragmentBi
         binding.get().repoList.setAdapter(rvAdapter);
         this.adapter = new AutoClearedValue<>(this, rvAdapter);
         initRepoList();
+
     }
+
+
+    private void initRepoList() {
+        viewModel.getRepositories().observe(this, repos -> {
+            // no null checks for adapter.get() since LiveData guarantees that we'll not receive
+            // the event if fragment is now show.
+            if (repos == null) {
+                adapter.get().replace(null);
+            } else {
+                adapter.get().replace(repos.data);
+            }
+        });
+    }
+
 
     @Override
     public int layoutId() {
         return R.layout.user_fragment;
+    }
+
+    public static UserFragment create(String login) {
+        UserFragment userFragment = new UserFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(LOGIN_KEY, login);
+        userFragment.setArguments(bundle);
+        return userFragment;
     }
 }

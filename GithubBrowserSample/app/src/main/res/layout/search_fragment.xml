@@ -27,7 +27,7 @@
         <variable name="query" type="String"/>
         <variable name="loadingMore" type="boolean"/>
         <variable name="searchResource" type="Resource"/>
-        <variable name="callback" type="com.android.example.github.ui.common.RetryCallback"/>
+        <variable name="callback" type="com.jktaihe.library.common.RetryCallback"/>
     </data>
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,7 +48,8 @@
                     android:id="@+id/input"
                     android:inputType="textNoSuggestions"
                     android:imeOptions="actionSearch"
-                    android:hint="@string/search_hint" tools:text="google"/>
+                    android:hint="@string/search_hint"
+                    tools:text="google"/>
         </android.support.design.widget.TextInputLayout>
         <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"

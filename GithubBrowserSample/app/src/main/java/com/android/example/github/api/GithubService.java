@@ -19,6 +19,7 @@ package com.android.example.github.api;
 import com.android.example.github.vo.Contributor;
 import com.android.example.github.vo.Repo;
 import com.android.example.github.vo.User;
+import com.jktaihe.library.api.ApiResponse;
 
 import android.arch.lifecycle.LiveData;
 

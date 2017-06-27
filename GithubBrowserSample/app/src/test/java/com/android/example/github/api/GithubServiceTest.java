@@ -16,7 +16,8 @@
 
 package com.android.example.github.api;
 
-import com.android.example.github.util.LiveDataCallAdapterFactory;
+import com.jktaihe.library.api.ApiResponse;
+import com.jktaihe.library.utils.LiveDataCallAdapterFactory;
 import com.android.example.github.vo.Contributor;
 import com.android.example.github.vo.Repo;
 import com.android.example.github.vo.User;

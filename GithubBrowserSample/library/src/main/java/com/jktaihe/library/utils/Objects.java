@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.example.github.binding;
+package com.jktaihe.library.utils;
 
-import android.app.Activity;
-import android.databinding.DataBindingComponent;
-import android.support.v4.app.Fragment;
-
-/**
- * A Data Binding Component implementation for Activitys.
- */
-public class ActivityDataBindingComponent implements DataBindingComponent {
-
-    private final ActivityBindingAdapters adapter;
-
-    public ActivityDataBindingComponent(Activity activity) {
-        this.adapter = new ActivityBindingAdapters(activity);
+public class Objects {
+    public static boolean equals(Object o1, Object o2) {
+        if (o1 == null) {
+            return o2 == null;
+        }
+        if (o2 == null) {
+            return false;
+        }
+        return o1.equals(o2);
     }
-
-    @Override
-    public ActivityBindingAdapters getActivityBindingAdapters() {
-        return adapter;
-    }
-
 }

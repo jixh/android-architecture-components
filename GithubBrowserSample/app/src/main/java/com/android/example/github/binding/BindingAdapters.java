@@ -20,12 +20,20 @@ import android.databinding.BindingAdapter;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 /**
  * Data Binding adapters specific to the app.
  */
 public class BindingAdapters {
+
     @BindingAdapter("visibleGone")
     public static void showHide(View view, boolean show) {
         view.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @BindingAdapter("imageUrl")
+    public static void bindImage(ImageView imageView, String url) {
+        Glide.with(imageView.getContext()).load(url).into(imageView);
     }
 }

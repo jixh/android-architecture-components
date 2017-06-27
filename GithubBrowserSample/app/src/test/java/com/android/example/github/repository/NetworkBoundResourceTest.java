@@ -31,7 +31,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.android.example.github.AppExecutors;
-import com.android.example.github.api.ApiResponse;
+import com.jktaihe.library.api.ApiResponse;
 import com.android.example.github.util.ApiUtil;
 import com.android.example.github.util.CountingAppExecutors;
 import com.android.example.github.util.InstantAppExecutors;

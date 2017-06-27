@@ -21,9 +21,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import com.android.example.github.R;
 import com.android.example.github.databinding.RepoFragmentBinding;
+import com.android.example.github.ui.DataBindFragment;
 import com.android.example.github.ui.LifecycleFragment;
 import com.android.example.github.ui.common.NavigationController;
-import com.android.example.github.util.AutoClearedValue;
+import com.jktaihe.library.utils.AutoClearedValue;
 import com.android.example.github.vo.Repo;
 import com.android.example.github.vo.Resource;
 import java.util.Collections;
@@ -32,7 +33,7 @@ import javax.inject.Inject;
 /**
  * The UI Controller for displaying a Github Repo's information with its contributors.
  */
-public class RepoFragment extends LifecycleFragment<RepoViewModel,RepoFragmentBinding> {
+public class RepoFragment extends DataBindFragment<RepoViewModel,RepoFragmentBinding> {
 
     private static final String REPO_OWNER_KEY = "repo_owner";
     private static final String REPO_NAME_KEY = "repo_name";
@@ -64,7 +65,8 @@ public class RepoFragment extends LifecycleFragment<RepoViewModel,RepoFragmentBi
     }
 
     @Override
-    public void initView(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         binding.get().setRetryCallback(() -> viewModel.retry());
 
         Bundle args = getArguments();
@@ -88,6 +90,7 @@ public class RepoFragment extends LifecycleFragment<RepoViewModel,RepoFragmentBi
         binding.get().contributorList.setAdapter(adapter);
         initContributorList(viewModel);
     }
+
 
     @Override
     public int layoutId() {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.viewmodel;
+package com.jktaihe.library.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

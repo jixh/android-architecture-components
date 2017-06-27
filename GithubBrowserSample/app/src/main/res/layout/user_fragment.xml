@@ -24,7 +24,7 @@
                 name="userResource"
                 type="com.android.example.github.vo.Resource"/>
         <variable name="retryCallback"
-                  type="com.android.example.github.ui.common.RetryCallback"/>
+                  type="com.jktaihe.library.common.RetryCallback"/>
     </data>
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

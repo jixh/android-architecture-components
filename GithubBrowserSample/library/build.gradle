@@ -21,9 +21,9 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
-    }
+//    dataBinding {
+//        enabled = true
+//    }
 
     lintOptions {
         lintConfig rootProject.file('lint.xml')
@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -44,10 +44,25 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$support_version"
     compile "com.android.support:cardview-v7:$support_version"
     compile "com.android.support:design:$support_version"
+
+    api "com.google.dagger:dagger:$dagger_version"
+    api "com.google.dagger:dagger-android:$dagger_version"
+    api "com.google.dagger:dagger-android-support:$dagger_version"
+    api "android.arch.persistence.room:runtime:$arch_version"
+    api "android.arch.lifecycle:runtime:$arch_version"
+    api "android.arch.lifecycle:extensions:$arch_version"
+
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    compile "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+    compile "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    compile "io.reactivex.rxjava2:rxjava:$rx_version"
+
+
     compile "com.android.support.constraint:constraint-layout:$constraint_layout_version"
-   // compile "org.greenrobot:eventbus:$eventbus_version"
+    // compile "org.greenrobot:eventbus:$eventbus_version"
     compile "com.github.bumptech.glide:glide:$glide_version"
     compile "com.jakewharton.timber:timber:$timber_version"
-
     testImplementation 'junit:junit:4.12'
+    implementation 'javax.annotation:javax.annotation-api:1.3'
 }

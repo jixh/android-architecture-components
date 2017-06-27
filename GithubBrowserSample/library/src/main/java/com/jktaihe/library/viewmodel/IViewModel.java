@@ -1,4 +1,4 @@
-package com.android.example.github.viewmodel;
+package com.jktaihe.library.viewmodel;
 
 /**
  * Created by jktaihe on 13/6/17.

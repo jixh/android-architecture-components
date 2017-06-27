@@ -16,21 +16,22 @@
 
 package com.android.example.github;
 
-import com.android.example.github.ui.LifecycleActivity;
-import com.android.example.github.ui.common.NavigationController;
 
+import com.android.example.github.ui.InjectableActivity;
+import com.android.example.github.ui.common.NavigationController;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import javax.inject.Inject;
 
-public class MainActivity extends LifecycleActivity {
+public class MainActivity extends InjectableActivity {
 
     @Inject
     NavigationController navigationController;
 
     @Override
-    public void initView(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle("test");
         if (savedInstanceState == null) {
             navigationController.navigateToSearch();
         }
@@ -40,4 +41,5 @@ public class MainActivity extends LifecycleActivity {
     public int layoutId() {
         return R.layout.main_activity;
     }
+
 }

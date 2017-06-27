@@ -16,7 +16,7 @@
 
 package com.android.example.github.repository;
 
-import com.android.example.github.api.ApiResponse;
+import com.jktaihe.library.api.ApiResponse;
 import com.android.example.github.api.GithubService;
 import com.android.example.github.api.RepoSearchResponse;
 import com.android.example.github.db.GithubDb;

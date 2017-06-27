@@ -1,4 +1,4 @@
-package com.jktaihe.library.ui;
+package com.jktaihe.library.view;
 
 /**
  * Created by jktaihe on 13/6/17.

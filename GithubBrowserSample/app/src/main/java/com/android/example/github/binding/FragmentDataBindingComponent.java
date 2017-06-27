@@ -16,6 +16,7 @@
 
 package com.android.example.github.binding;
 
+
 import android.databinding.DataBindingComponent;
 import android.support.v4.app.Fragment;
 
@@ -23,6 +24,7 @@ import android.support.v4.app.Fragment;
  * A Data Binding Component implementation for fragments.
  */
 public class FragmentDataBindingComponent implements DataBindingComponent {
+
     private final FragmentBindingAdapters adapter;
 
     public FragmentDataBindingComponent(Fragment fragment) {
@@ -33,4 +35,6 @@ public class FragmentDataBindingComponent implements DataBindingComponent {
     public FragmentBindingAdapters getFragmentBindingAdapters() {
         return adapter;
     }
+
+
 }

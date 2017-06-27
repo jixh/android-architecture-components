@@ -18,7 +18,7 @@ package com.android.example.github.ui.common;
 
 import com.android.example.github.R;
 import com.android.example.github.databinding.RepoItemBinding;
-import com.android.example.github.util.Objects;
+import com.jktaihe.library.utils.Objects;
 import com.android.example.github.vo.Repo;
 
 import android.databinding.DataBindingComponent;

@@ -21,7 +21,7 @@
         <import type="com.android.example.github.vo.Resource"/>
         <import type="com.android.example.github.vo.Status"/>
         <variable name="resource" type="Resource"/>
-        <variable name="callback" type="com.android.example.github.ui.common.RetryCallback"/>
+        <variable name="callback" type="com.jktaihe.library.common.RetryCallback"/>
     </data>
     <LinearLayout android:orientation="vertical"
                   app:visibleGone="@{resource.data == null}"

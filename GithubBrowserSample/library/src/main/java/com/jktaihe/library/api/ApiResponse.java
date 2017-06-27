@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.api;
+package com.jktaihe.library.api;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

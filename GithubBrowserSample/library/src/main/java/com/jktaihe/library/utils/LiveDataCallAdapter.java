@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.example.github.util;
+package com.jktaihe.library.utils;
 
 
-import com.android.example.github.api.ApiResponse;
 
 import android.arch.lifecycle.LiveData;
-
+import com.jktaihe.library.api.ApiResponse;
 import java.lang.reflect.Type;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Callback;

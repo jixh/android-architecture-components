@@ -10,10 +10,10 @@ import java.lang.reflect.Type;
 
 public class ClassUtils {
 
-    public static <T> Class<T> getClass(Class clz){
+    public static <T> Class<T> getClass(Class clz,int index){
         ParameterizedType type = (ParameterizedType) clz.getGenericSuperclass();
         Type[] types = type.getActualTypeArguments();
-        return  (Class<T>) types[0];
+        return  (Class<T>) types[index];
     }
 
 }

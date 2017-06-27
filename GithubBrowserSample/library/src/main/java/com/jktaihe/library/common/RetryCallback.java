@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.ui.common;
+package com.jktaihe.library.common;
 
 /**
  * Generic interface for retry buttons.

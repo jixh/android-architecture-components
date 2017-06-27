@@ -31,7 +31,7 @@
             name="contributorsStatus"
             type="com.android.example.github.vo.Status"/>
         <variable name="retryCallback"
-                  type="com.android.example.github.ui.common.RetryCallback"/>
+                  type="com.jktaihe.library.common.RetryCallback"/>
     </data>
     <android.support.constraint.ConstraintLayout
             android:orientation="vertical" android:layout_width="match_parent"

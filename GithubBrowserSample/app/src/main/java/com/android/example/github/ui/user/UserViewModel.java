@@ -18,8 +18,8 @@ package com.android.example.github.ui.user;
 
 import com.android.example.github.repository.RepoRepository;
 import com.android.example.github.repository.UserRepository;
-import com.android.example.github.util.AbsentLiveData;
-import com.android.example.github.util.Objects;
+import com.jktaihe.library.utils.AbsentLiveData;
+import com.jktaihe.library.utils.Objects;
 import com.android.example.github.vo.Repo;
 import com.android.example.github.vo.Resource;
 import com.android.example.github.vo.User;

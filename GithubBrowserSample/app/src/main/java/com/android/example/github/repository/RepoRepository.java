@@ -17,13 +17,13 @@
 package com.android.example.github.repository;
 
 import com.android.example.github.AppExecutors;
-import com.android.example.github.api.ApiResponse;
+import com.jktaihe.library.api.ApiResponse;
 import com.android.example.github.api.GithubService;
 import com.android.example.github.api.RepoSearchResponse;
 import com.android.example.github.db.GithubDb;
 import com.android.example.github.db.RepoDao;
-import com.android.example.github.util.AbsentLiveData;
-import com.android.example.github.util.RateLimiter;
+import com.jktaihe.library.utils.AbsentLiveData;
+import com.jktaihe.library.utils.RateLimiter;
 import com.android.example.github.vo.Contributor;
 import com.android.example.github.vo.Repo;
 import com.android.example.github.vo.RepoSearchResult;
