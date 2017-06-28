@@ -16,14 +16,12 @@
 
 package com.android.example.github.ui.user;
 
-import android.databinding.DataBindingComponent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import com.android.example.github.R;
 import com.android.example.github.databinding.UserFragmentBinding;
 import com.android.example.github.ui.DataBindFragment;
 import com.android.example.github.ui.common.NavigationController;
-import com.android.example.github.ui.common.RepoListAdapter;
 import com.jktaihe.library.utils.AutoClearedValue;
 
 import javax.inject.Inject;
@@ -51,10 +49,12 @@ public class UserFragment extends DataBindFragment<UserViewModel,UserFragmentBin
             // this is only necessary because espresso cannot read data binding callbacks.
             binding.get().executePendingBindings();
         });
+
         RepoListAdapter rvAdapter = new RepoListAdapter(dataBindingComponent, false,
                 repo -> navigationController.navigateToRepo(repo.owner.login, repo.name));
         binding.get().repoList.setAdapter(rvAdapter);
         this.adapter = new AutoClearedValue<>(this, rvAdapter);
+
         initRepoList();
 
     }

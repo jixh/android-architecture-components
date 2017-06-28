@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.example.github.ui.common;
+package com.android.example.github.ui.user;
 
 import com.android.example.github.R;
 import com.android.example.github.databinding.RepoItemBinding;
+import com.android.example.github.ui.common.DataBoundListAdapter;
 import com.jktaihe.library.utils.Objects;
 import com.android.example.github.vo.Repo;
 

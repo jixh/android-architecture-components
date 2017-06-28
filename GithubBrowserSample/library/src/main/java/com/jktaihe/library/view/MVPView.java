@@ -5,8 +5,6 @@ package com.jktaihe.library.view;
  * blog: blog.jktaihe.com
  */
 
-public interface IBaseView<P> {
-
-    void setPresenter(P presenter);
-
+public interface MVPView<T> {
+    void setPresenter(T presenter);
 }
