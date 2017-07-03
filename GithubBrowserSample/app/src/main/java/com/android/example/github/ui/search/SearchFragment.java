@@ -28,7 +28,7 @@ import com.android.example.github.R;
 import com.android.example.github.databinding.SearchFragmentBinding;
 import com.android.example.github.ui.DataBindFragment;
 import com.android.example.github.ui.common.NavigationController;
-import com.android.example.github.ui.user.RepoListAdapter;
+import com.android.example.github.ui.common.RepoListAdapter;
 import com.jktaihe.library.utils.AutoClearedValue;
 import javax.inject.Inject;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.ui.user;
+package com.android.example.github.ui.common;
 
 import com.android.example.github.R;
 import com.android.example.github.databinding.RepoItemBinding;

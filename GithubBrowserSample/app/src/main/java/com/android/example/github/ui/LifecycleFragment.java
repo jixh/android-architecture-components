@@ -12,7 +12,7 @@ import com.jktaihe.library.view.BaseFragment;
 public abstract class LifecycleFragment extends BaseFragment implements LifecycleRegistryOwner {
 
     private final LifecycleRegistry mLifecycleRegistry = new LifecycleRegistry(this);
-
+    @Override
     public LifecycleRegistry getLifecycle() {
         return this.mLifecycleRegistry;
     }

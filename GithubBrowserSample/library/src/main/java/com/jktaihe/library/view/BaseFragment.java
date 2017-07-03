@@ -25,7 +25,7 @@ public abstract class BaseFragment extends Fragment implements IView {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof AppCompatActivity){
+        if (context instanceof BaseActivity){
             activity = (BaseActivity) context;
         }
     }
