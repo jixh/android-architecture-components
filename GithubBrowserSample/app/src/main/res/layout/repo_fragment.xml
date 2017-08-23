@@ -33,9 +33,11 @@
         <variable name="retryCallback"
                   type="com.jktaihe.library.common.RetryCallback"/>
     </data>
+
     <android.support.constraint.ConstraintLayout
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/name"
             style="@style/TextAppearance.AppCompat.Headline"

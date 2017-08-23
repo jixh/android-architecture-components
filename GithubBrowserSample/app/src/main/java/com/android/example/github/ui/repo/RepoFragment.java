@@ -97,4 +97,14 @@ public class RepoFragment extends DataBindFragment<RepoViewModel,RepoFragmentBin
         return R.layout.repo_fragment;
     }
 
+
+    @Override
+    public int toolbarId() {
+        return 0;
+    }
+
+    @Override
+    public int titleViewId() {
+        return 0;
+    }
 }

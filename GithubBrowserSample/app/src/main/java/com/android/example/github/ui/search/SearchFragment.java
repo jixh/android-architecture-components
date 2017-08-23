@@ -24,15 +24,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+
 import com.android.example.github.R;
 import com.android.example.github.databinding.SearchFragmentBinding;
 import com.android.example.github.ui.DataBindFragment;
 import com.android.example.github.ui.common.NavigationController;
 import com.android.example.github.ui.common.RepoListAdapter;
 import com.jktaihe.library.utils.AutoClearedValue;
+
 import javax.inject.Inject;
 
-public class SearchFragment extends DataBindFragment<SearchViewModel,SearchFragmentBinding> {
+public class SearchFragment extends DataBindFragment<SearchViewModel, SearchFragmentBinding> {
     @Inject
     NavigationController navigationController;
     AutoClearedValue<RepoListAdapter> adapter;
@@ -103,6 +105,10 @@ public class SearchFragment extends DataBindFragment<SearchViewModel,SearchFragm
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        setTitle(getClass().getSimpleName());
+        setBack();
+
         initRecyclerView();
         RepoListAdapter rvAdapter = new RepoListAdapter(dataBindingComponent, true,
                 repo -> navigationController.navigateToRepo(repo.owner.login, repo.name));

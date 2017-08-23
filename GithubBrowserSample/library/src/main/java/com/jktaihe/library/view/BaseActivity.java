@@ -19,30 +19,6 @@ import android.widget.TextView;
 
 public abstract class BaseActivity extends AppCompatActivity implements IView {
 
-    private Toolbar mToolbar;
-
-    @Override
-    public void setTitle(CharSequence title) {
-
-        mToolbar = new Toolbar(this);
-
-        TextView textView = new TextView(this);
-        textView.setText(title);
-
-        Toolbar.LayoutParams params = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
-        mToolbar.addView(textView,params);
-
-        setSupportActionBar(mToolbar);
-    }
-
-
-    public void setTitleRightBut(CharSequence title, View.OnClickListener onClickListener){
-        setTitle(title);
-        mToolbar.setNavigationOnClickListener(onClickListener);
-    }
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

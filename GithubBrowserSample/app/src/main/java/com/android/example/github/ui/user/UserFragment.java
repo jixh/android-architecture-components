@@ -41,6 +41,9 @@ public class UserFragment extends DataBindFragment<UserViewModel,UserFragmentBin
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setTitle(getClass().getSimpleName());
+        setBack();
+
         binding.get().setRetryCallback(()->viewModel.retry());
 
         viewModel.setLogin(getArguments().getString(LOGIN_KEY));
@@ -57,7 +60,6 @@ public class UserFragment extends DataBindFragment<UserViewModel,UserFragmentBin
         this.adapter = new AutoClearedValue<>(this, rvAdapter);
 
         initRepoList();
-
     }
 
 
@@ -78,6 +80,7 @@ public class UserFragment extends DataBindFragment<UserViewModel,UserFragmentBin
     public int layoutId() {
         return R.layout.user_fragment;
     }
+
 
     public static UserFragment create(String login) {
         UserFragment userFragment = new UserFragment();

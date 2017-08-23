@@ -31,7 +31,6 @@ public class MainActivity extends InjectableActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("test");
         if (savedInstanceState == null) {
             navigationController.navigateToSearch();
         }

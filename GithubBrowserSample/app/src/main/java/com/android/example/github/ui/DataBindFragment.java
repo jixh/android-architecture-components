@@ -11,6 +11,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.android.example.github.R;
 import com.android.example.github.binding.FragmentDataBindingComponent;
 import com.android.example.github.di.Injectable;
 import com.jktaihe.library.utils.AutoClearedValue;
@@ -46,4 +48,13 @@ public abstract class DataBindFragment<M extends ViewModel, T extends ViewDataBi
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ClassUtils.getClass(getClass(),0));
     }
 
+    @Override
+    public int toolbarId() {
+        return R.id.toolbar;
+    }
+
+    @Override
+    public int titleViewId() {
+        return R.id.tv_title;
+    }
 }

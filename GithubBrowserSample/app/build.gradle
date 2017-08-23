@@ -20,6 +20,7 @@ apply plugin: 'jacoco'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
         applicationId "com.android.example.github"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -28,9 +29,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "com.android.example.github.util.GithubTestRunner"
         buildConfigField("String","HOST_API","\"https://api.github.com/\"")
-
-
+        manifestPlaceholders =
+                [
+                        UMENG_CHANNEL_VALUE: "umeng",
+                        APP_NAME: "GitHub",
+                ]
     }
+
     buildTypes {
         debug {
             testCoverageEnabled !project.hasProperty('android.injected.invoked.from.ide')
@@ -40,6 +45,168 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        debug {
+            try {
+                storeFile file("D:\\keystore\\jktaihe_key.jks")
+                storePassword KEYSTORE_PASSWORD
+                keyAlias "alias"
+                keyPassword KEY_PASSWORD
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+
+        release {
+            try {
+                storeFile file("D:\\keystore\\jktaihe_key.jks")
+                storePassword KEYSTORE_PASSWORD
+                keyAlias "alias"
+                keyPassword KEY_PASSWORD
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+
+    flavorDimensions "app"
+
+    productFlavors {
+
+//        dev{
+//            minSdkVersion 21       // To avoid using legacy multidex, set minSdkVersion to 21 or higher.
+//            versionNameSuffix "-dev"
+//            applicationIdSuffix '.dev'
+//
+//            resConfigs "xhdpi"//,"zh"
+//        }
+
+//        prod {
+//            minSdkVersion 14
+//        }
+
+//        TestLocal{//测试库内网
+//            versionNameSuffix "-" + name
+////            applicationIdSuffix '.testinner'
+//            minSdkVersion 21
+//            targetSdkVersion 22
+//            buildConfigField("String","API_HOST","\"http://192.168.18.102:8082\"")
+////            buildConfigField("String","API_HOST","\"http://192.168.8.186:9999\"")
+//        }
+
+        TestInner{//测试库内网
+//            versionNameSuffix "-" + name
+//            applicationIdSuffix '.'.concat(name).toLowerCase()
+            minSdkVersion 21
+            targetSdkVersion 26
+//            buildConfigField("String","HOST_API","\"http://192.168.3.19:8088\"")
+            manifestPlaceholders =
+                    [
+                            APP_NAME: name + "_测试",
+                    ]
+            dimension "app"
+        }
+//        TestOutter{//测试库外网
+//            versionNameSuffix "-" + name
+//            applicationIdSuffix '.testoutter'
+//            buildConfigField("String","API_HOST","\"http://60.190.233.23:8080\"")
+//
+//        }
+//
+//        PreProd{//预发布版本
+//            versionNameSuffix "-" + name
+//            applicationIdSuffix '.preprod'
+//            buildConfigField("String","API_HOST","\"http://36.22.191.29:8780\"")
+//            manifestPlaceholders =
+//                    [
+//                            APP_NAME: name + "_预发布",
+//                    ]
+//        }
+//
+//        Prod {//正式版
+//            buildConfigField("String","API_HOST","\"http://mobi.vongihealth.com:85\"")
+//        }
+
+//        tencent {}
+//        wandoujia {}
+//        _360 {}
+//        baidu {}
+//        xiaomi {}
+//        taobao {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    buildTypes {
+
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+//        beta.initWith(buildTypes.release)
+//        beta {
+//            buildConfigField "boolean", "LOG_DEBUG", "true"
+//            applicationIdSuffix '.beta'
+//            versionNameSuffix '-BETA'
+//        }
+
+    }
+
+    applicationVariants.all { variant ->
+            variant.outputs.all {
+                def appName = "GigHub"
+                def newName = ""
+                def channelName = variant.productFlavors[0].name
+                def versionName = android.defaultConfig.versionName
+                def versionCode = android.defaultConfig.versionCode
+                def releaseTime = new Date().format("yyyyMMdd", TimeZone.getTimeZone("Asia/Shanghai"))
+                newName = appName + "_" + channelName + "_" + releaseTime
+                if (variant.buildType.name.equals("debug")) {
+                    newName += "_debug_"
+                } else if (variant.buildType.name.equals("beta")){
+                    newName += "_beta_"
+                } else if (variant.buildType.name.equals("release")){
+                    newName += "_release_"
+                }
+                newName  +=  versionName+ "_" +versionCode +".apk"
+                outputFileName  = newName
+            }
+    }
+
+    // 打包排除以下文件，屏蔽因as自身bug，在没有重复引用jar时，提示jar重复引用的问题
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
+
     dataBinding {
         enabled = true
     }
@@ -54,7 +221,9 @@ android {
     lintOptions {
         lintConfig rootProject.file('lint.xml')
     }
+
 }
+
 
 jacoco {
     toolVersion = "0.7.4+"

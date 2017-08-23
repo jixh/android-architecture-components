@@ -33,12 +33,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <include layout="@layout/layout_title"
+            android:id="@+id/rl_title"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rl_title"
+                app:layout_constraintStart_toStartOf="@id/rl_title"
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" android:id="@+id/textInputLayout3">
 

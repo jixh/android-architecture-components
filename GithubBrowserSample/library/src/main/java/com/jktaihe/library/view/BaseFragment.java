@@ -1,16 +1,8 @@
 package com.jktaihe.library.view;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 /**
  * Created by jktaihe on 7/6/17.
@@ -20,7 +12,6 @@ import android.widget.TextView;
 public abstract class BaseFragment extends Fragment implements IView {
 
     protected BaseActivity activity;
-
 
     @Override
     public void onAttach(Context context) {
@@ -41,5 +32,4 @@ public abstract class BaseFragment extends Fragment implements IView {
           activity.dismissKeyboard(windowToken);
         }
     }
-
 }
