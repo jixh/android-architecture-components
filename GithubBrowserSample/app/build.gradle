@@ -48,7 +48,7 @@ android {
     signingConfigs {
         debug {
             try {
-                storeFile file("key.jks")
+                storeFile file("../key.jks")
                 storePassword KEYSTORE_PASSWORD
                 keyAlias "alias"
                 keyPassword KEY_PASSWORD
@@ -60,7 +60,7 @@ android {
 
         release {
             try {
-                storeFile file("key.jks")
+                storeFile file("../key.jks")
                 storePassword KEYSTORE_PASSWORD
                 keyAlias "alias"
                 keyPassword KEY_PASSWORD
