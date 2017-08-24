@@ -15,7 +15,6 @@
  */
 
 apply plugin: 'com.android.application'
-apply plugin: 'jacoco'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -49,7 +48,7 @@ android {
     signingConfigs {
         debug {
             try {
-                storeFile file("D:\\keystore\\jktaihe_key.jks")
+                storeFile file("key.jks")
                 storePassword KEYSTORE_PASSWORD
                 keyAlias "alias"
                 keyPassword KEY_PASSWORD
@@ -61,7 +60,7 @@ android {
 
         release {
             try {
-                storeFile file("D:\\keystore\\jktaihe_key.jks")
+                storeFile file("key.jks")
                 storePassword KEYSTORE_PASSWORD
                 keyAlias "alias"
                 keyPassword KEY_PASSWORD
@@ -223,10 +222,6 @@ android {
 }
 
 
-jacoco {
-    toolVersion = "0.7.4+"
-}
-
 dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"
@@ -270,29 +265,3 @@ dependencies {
     compile project(':library')
 }
 
-task fullCoverageReport(type: JacocoReport) {
-    dependsOn 'createDebugCoverageReport'
-    dependsOn 'testDebugUnitTest'
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
-                      '**/*Test*.*', 'android/**/*.*',
-                      '**/*_MembersInjector.class',
-                      '**/Dagger*Component.class',
-                      '**/Dagger*Component$Builder.class',
-                      '**/*_*Factory.class',
-                      '**/*ComponentImpl.class',
-                      '**/*SubComponentBuilder.class']
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-    def mainSrc = "${project.projectDir}/src/main/java"
-
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = fileTree(dir: "$buildDir", includes: [
-            "jacoco/testDebugUnitTest.exec",
-            "outputs/code-coverage/connected/*coverage.ec"
-    ])
-}

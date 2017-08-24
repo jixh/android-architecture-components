@@ -34,8 +34,8 @@ buildscript {
 }
 
 ext{
-    arch_version = "1.0.0-alpha2"
-    support_version = "25.3.1"
+    arch_version = "1.0.0-alpha9"
+    support_version = "26.0.1"
     dagger_version = "2.11"
     junit_version = "4.12"
     espresso_version = "2.2.2"
@@ -55,10 +55,10 @@ ext{
 
 
 ext{
-    compileSdkVersion = 25
-    buildToolsVersion ="25.0.2"
+    compileSdkVersion = 26
+    buildToolsVersion ="26.0.1"
     minSdkVersion = 14
-    targetSdkVersion =25
+    targetSdkVersion =26
 }
 
 allprojects {
