@@ -22,11 +22,10 @@ import android.support.annotation.Nullable;
 import com.android.example.github.R;
 import com.android.example.github.databinding.RepoFragmentBinding;
 import com.android.example.github.ui.DataBindFragment;
-import com.android.example.github.ui.LifecycleFragment;
 import com.android.example.github.ui.common.NavigationController;
 import com.jktaihe.library.utils.AutoClearedValue;
 import com.android.example.github.vo.Repo;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 import java.util.Collections;
 import javax.inject.Inject;
 

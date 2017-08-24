@@ -20,7 +20,9 @@ import com.android.example.github.repository.RepoRepository;
 import com.jktaihe.library.utils.AbsentLiveData;
 import com.jktaihe.library.utils.Objects;
 import com.android.example.github.vo.Repo;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.utils.StateLiveData;
+import com.jktaihe.library.vo.Resource;
+import com.jktaihe.library.vo.Status;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -47,9 +49,9 @@ public class SearchViewModel extends ViewModel {
     @Inject
     SearchViewModel(RepoRepository repoRepository) {
         nextPageHandler = new NextPageHandler(repoRepository);
-        results = Transformations.switchMap(query, search -> {
+       results = Transformations.switchMap(query, search -> {
             if (search == null || search.trim().length() == 0) {
-                return AbsentLiveData.create();
+                return StateLiveData.create(Status.SUCCESS,"输入为空");
             } else {
                 return repoRepository.search(search);
             }

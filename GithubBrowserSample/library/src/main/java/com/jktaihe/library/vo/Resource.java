@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.example.github.vo;
+package com.jktaihe.library.vo;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static com.android.example.github.vo.Status.ERROR;
-import static com.android.example.github.vo.Status.LOADING;
-import static com.android.example.github.vo.Status.SUCCESS;
+import static com.jktaihe.library.vo.Status.ERROR;
+import static com.jktaihe.library.vo.Status.LOADING;
+import static com.jktaihe.library.vo.Status.SUCCESS;
 
 /**
  * A generic class that holds a value with its loading status.
@@ -54,6 +54,10 @@ public class Resource<T> {
 
     public static <T> Resource<T> loading(@Nullable T data) {
         return new Resource<>(LOADING, data, null);
+    }
+
+    public static Resource create(@NonNull Status status,@Nullable String msg) {
+        return new Resource<>(status, null, msg);
     }
 
     @Override

@@ -15,7 +15,7 @@ import com.jktaihe.library.R;
  * Created by hzjixiaohui on 2017-7-25.
  */
 
-public abstract class TitleFragment extends BaseFragment implements ITitleView{
+public abstract class TitleBarFragment extends BaseFragment implements ITitleView{
 
     private Toolbar mToolbar;
     private TextView mTitleView;
@@ -25,6 +25,9 @@ public abstract class TitleFragment extends BaseFragment implements ITitleView{
         if (toolbarId() != 0){
             mToolbar = (Toolbar) getView().findViewById(toolbarId());
             mTitleView = (TextView) getView().findViewById(titleViewId());
+
+            activity.setSupportActionBar(mToolbar);
+            activity.setTitle(null);
         }
     }
 
@@ -43,17 +46,21 @@ public abstract class TitleFragment extends BaseFragment implements ITitleView{
         super.onActivityCreated(savedInstanceState);
         initView();
     }
-
-    protected void setTitle(@NonNull String title){
+    @Override
+    public void setTitle(@NonNull String title){
         mTitleView.setText(title);
     }
-
-    private void setTitle(@StringRes int titleId){
+    @Override
+    public void setTitle(@StringRes int titleId){
         mTitleView.setText(titleId);
     }
+    @Override
+    public void setBack(){
+        //自定义返回按钮
+//        mToolbar.setNavigationIcon(R.drawable.back);
 
-    protected void setBack(){
-        mToolbar.setNavigationIcon(R.drawable.back);
+        //设置回退按钮，及点击事件的效果
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,22 +69,26 @@ public abstract class TitleFragment extends BaseFragment implements ITitleView{
         });
     }
 
-    protected void hideBack(){
-        mToolbar.setNavigationIcon(null);
-        mToolbar.setNavigationOnClickListener(null);
-    }
+//    @Override
+//    public void hideBack(){
+////        mToolbar.setNavigationIcon(null);
+//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//
+//        mToolbar.setNavigationOnClickListener(null);
+//    }
 
     /**
      * 设置
      * @param resId
      * @param onMenuItemClickListener
      */
-    protected void showRightMenu(@MenuRes int resId, Toolbar.OnMenuItemClickListener onMenuItemClickListener){
+    @Override
+    public void showRightMenu(@MenuRes int resId, Toolbar.OnMenuItemClickListener onMenuItemClickListener){
         mToolbar.inflateMenu(resId);
         mToolbar.setOnMenuItemClickListener(onMenuItemClickListener);
     }
-
-    protected void showRightMenu(@Nullable String txt, @Nullable int imageId, Toolbar.OnMenuItemClickListener onMenuItemClickListener){
+    @Override
+    public void showRightMenu(@Nullable String txt, @Nullable int imageId, Toolbar.OnMenuItemClickListener onMenuItemClickListener){
         if (mToolbar.getMenu()==null || mToolbar.getMenu().size()!=1){
             showRightMenu(R.menu.toolbar_menu,onMenuItemClickListener);
         }
@@ -90,8 +101,8 @@ public abstract class TitleFragment extends BaseFragment implements ITitleView{
             mToolbar.getMenu().getItem(0).setIcon(imageId);
 
     }
-
-    protected void hideRightMenu(){
+    @Override
+    public void hideRightMenu(){
         if (mToolbar.getMenu()!=null && mToolbar.getMenu().hasVisibleItems())
             mToolbar.getMenu().getItem(0).setVisible(false);
     }

@@ -103,10 +103,7 @@ android {
             minSdkVersion 21
             targetSdkVersion 26
 //            buildConfigField("String","HOST_API","\"http://192.168.3.19:8088\"")
-            manifestPlaceholders =
-                    [
-                            APP_NAME: name + "_测试",
-                    ]
+
             dimension "app"
         }
 //        TestOutter{//测试库外网
@@ -120,10 +117,7 @@ android {
 //            versionNameSuffix "-" + name
 //            applicationIdSuffix '.preprod'
 //            buildConfigField("String","API_HOST","\"http://36.22.191.29:8780\"")
-//            manifestPlaceholders =
-//                    [
-//                            APP_NAME: name + "_预发布",
-//                    ]
+//
 //        }
 //
 //        Prod {//正式版
@@ -140,6 +134,10 @@ android {
 
     productFlavors.all { flavor ->
         flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+            switch (name){
+                case "TestInner": flavor.manifestPlaceholders =[APP_NAME: "GigHub_测试",] ; break
+                case "PreProd": flavor.manifestPlaceholders =[APP_NAME: "GigHub_预发布",]
+            }
     }
 
     buildTypes {

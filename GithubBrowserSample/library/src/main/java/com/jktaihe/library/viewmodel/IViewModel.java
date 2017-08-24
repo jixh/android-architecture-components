@@ -6,7 +6,5 @@ package com.jktaihe.library.viewmodel;
  */
 
 public interface IViewModel {
-
     void retry();
-
 }

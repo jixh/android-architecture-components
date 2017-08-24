@@ -18,7 +18,7 @@ package com.android.example.github.repository;
 
 import com.android.example.github.AppExecutors;
 import com.jktaihe.library.api.ApiResponse;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;

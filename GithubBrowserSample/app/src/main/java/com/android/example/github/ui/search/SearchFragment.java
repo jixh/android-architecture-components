@@ -21,6 +21,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -31,13 +32,23 @@ import com.android.example.github.ui.DataBindFragment;
 import com.android.example.github.ui.common.NavigationController;
 import com.android.example.github.ui.common.RepoListAdapter;
 import com.jktaihe.library.utils.AutoClearedValue;
+import com.jktaihe.library.utils.ToastUtils;
+import com.jktaihe.library.vo.Status;
+import com.jktaihe.library.widget.loadmore.wrapper.LoadMoreWrapper;
 
 import javax.inject.Inject;
 
 public class SearchFragment extends DataBindFragment<SearchViewModel, SearchFragmentBinding> {
     @Inject
     NavigationController navigationController;
-    AutoClearedValue<RepoListAdapter> adapter;
+    AutoClearedValue<LoadMoreWrapper> adapter;
+
+    View.OnClickListener retry = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            viewModel.refresh();
+        }
+    };
 
     private void initSearchInputListener() {
         binding.get().input.setOnEditorActionListener((v, actionId, event) -> {
@@ -58,46 +69,48 @@ public class SearchFragment extends DataBindFragment<SearchViewModel, SearchFrag
     }
 
     private void doSearch(View v) {
+
         String query = binding.get().input.getText().toString();
+
+        if (TextUtils.isEmpty(query)){
+            ToastUtils.shortToast(activity,"输入不可为空");
+            return;
+        }
         // Dismiss keyboard
         dismissKeyboard(v.getWindowToken());
-        binding.get().setQuery(query);
         viewModel.setQuery(query);
     }
 
     private void initRecyclerView() {
 
-        binding.get().repoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager)
-                        recyclerView.getLayoutManager();
-                int lastPosition = layoutManager
-                        .findLastVisibleItemPosition();
-                if (lastPosition == adapter.get().getItemCount() - 1) {
-                    viewModel.loadNextPage();
-                }
-            }
-        });
-
         viewModel.getResults().observe(this, result -> {
-            binding.get().setSearchResource(result);
-            binding.get().setResultCount((result == null || result.data == null)
-                    ? 0 : result.data.size());
-            adapter.get().replace(result == null ? null : result.data);
-            binding.get().executePendingBindings();
+            switch (result.status){
+                case ERROR:
+                    binding.get().progressLayout.showFailed(retry);
+                    break;
+                case LOADING:
+                    binding.get().progressLayout.showLoading();
+                    break;
+                case SUCCESS:
+                    binding.get().progressLayout.showContent();
+                    ((RepoListAdapter)adapter.get().getmInnerAdapter()).replace(result == null ? null : result.data);
+                    adapter.get().setHasMore(true);
+                    binding.get().executePendingBindings();
+                    break;
+            }
+
         });
 
         viewModel.getLoadMoreStatus().observe(this, loadingMore -> {
-            if (loadingMore == null) {
-                binding.get().setLoadingMore(false);
-            } else {
-                binding.get().setLoadingMore(loadingMore.isRunning());
-                String error = loadingMore.getErrorMessageIfNotHandled();
-                if (error != null) {
-                    Snackbar.make(binding.get().loadMoreBar, error, Snackbar.LENGTH_LONG).show();
-                }
+
+            String error = loadingMore.getErrorMessageIfNotHandled();
+            if (error != null) {
+                binding.get().progressLayout.showFailed(retry);
+                Snackbar.make(binding.get().textInputLayout3, error, Snackbar.LENGTH_LONG).show();
+                return;
             }
+
+            adapter.get().setHasMore(false);
             binding.get().executePendingBindings();
         });
     }
@@ -112,12 +125,18 @@ public class SearchFragment extends DataBindFragment<SearchViewModel, SearchFrag
         initRecyclerView();
         RepoListAdapter rvAdapter = new RepoListAdapter(dataBindingComponent, true,
                 repo -> navigationController.navigateToRepo(repo.owner.login, repo.name));
-        binding.get().repoList.setAdapter(rvAdapter);
-        adapter = new AutoClearedValue<>(this, rvAdapter);
+        LoadMoreWrapper<RepoListAdapter> mLoadMoreWrapper = new LoadMoreWrapper(rvAdapter);
+        mLoadMoreWrapper.setLoadMoreView(R.layout.default_loading);
+        mLoadMoreWrapper.setOnLoadMoreListener(new LoadMoreWrapper.OnLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                viewModel.loadNextPage();
+            }
+        });
+        binding.get().repoList.setAdapter(mLoadMoreWrapper);
+        adapter = new AutoClearedValue<>(this, mLoadMoreWrapper);
 
         initSearchInputListener();
-
-        binding.get().setCallback(() -> viewModel.refresh());
     }
 
 

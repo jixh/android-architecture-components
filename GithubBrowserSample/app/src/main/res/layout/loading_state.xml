@@ -18,9 +18,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.android.example.github.vo.Resource"/>
-        <import type="com.android.example.github.vo.Status"/>
-        <variable name="resource" type="Resource"/>
+        <import type="com.jktaihe.library.vo.Resource"/>
+        <import type="com.jktaihe.library.vo.Status"/>
+        <variable name="resource" type="com.jktaihe.library.vo.Resource"/>
         <variable name="callback" type="com.jktaihe.library.common.RetryCallback"/>
     </data>
     <LinearLayout android:orientation="vertical"

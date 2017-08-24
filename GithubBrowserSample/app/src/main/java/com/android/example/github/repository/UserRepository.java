@@ -20,7 +20,7 @@ import com.android.example.github.AppExecutors;
 import com.jktaihe.library.api.ApiResponse;
 import com.android.example.github.api.GithubService;
 import com.android.example.github.db.UserDao;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 import com.android.example.github.vo.User;
 
 import android.arch.lifecycle.LiveData;

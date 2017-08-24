@@ -19,17 +19,17 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="com.android.example.github.vo.Status"/>
-        <import type="com.android.example.github.vo.Resource"/>
+        <import type="com.jktaihe.library.vo.Status"/>
+        <import type="com.jktaihe.library.vo.Resource"/>
         <variable
             name="repo"
             type="com.android.example.github.vo.Repo"/>
         <variable
             name="repoResource"
-            type="Resource"/>
+            type="com.jktaihe.library.vo.Resource"/>
         <variable
             name="contributorsStatus"
-            type="com.android.example.github.vo.Status"/>
+            type="com.jktaihe.library.vo.Status"/>
         <variable name="retryCallback"
                   type="com.jktaihe.library.common.RetryCallback"/>
     </data>

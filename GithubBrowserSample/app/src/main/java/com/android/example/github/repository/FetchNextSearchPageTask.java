@@ -21,7 +21,7 @@ import com.android.example.github.api.GithubService;
 import com.android.example.github.api.RepoSearchResponse;
 import com.android.example.github.db.GithubDb;
 import com.android.example.github.vo.RepoSearchResult;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;

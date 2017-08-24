@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.vo;
+package com.jktaihe.library.vo;
 
 /**
  * Status of a resource that is provided to the UI.
@@ -25,5 +25,5 @@ package com.android.example.github.vo;
 public enum Status {
     SUCCESS,
     ERROR,
-    LOADING
+    LOADING,
 }

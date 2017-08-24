@@ -21,7 +21,7 @@ import com.android.example.github.repository.UserRepository;
 import com.jktaihe.library.utils.AbsentLiveData;
 import com.jktaihe.library.utils.Objects;
 import com.android.example.github.vo.Repo;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 import com.android.example.github.vo.User;
 
 import android.arch.lifecycle.LiveData;

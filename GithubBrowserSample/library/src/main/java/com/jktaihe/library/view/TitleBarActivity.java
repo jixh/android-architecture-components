@@ -26,7 +26,9 @@ public abstract class TitleBarActivity extends BaseActivity implements ITitleVie
         if (toolbarId() != 0) {
             mToolbar = (Toolbar) findViewById(toolbarId());
             mTitleView = (TextView) findViewById(titleViewId());
+
             setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
     }
 
@@ -36,16 +38,18 @@ public abstract class TitleBarActivity extends BaseActivity implements ITitleVie
     @Override
     public  int titleViewId() { return 0; }
 
-    protected void setTitle(@NonNull String title){
+    @Override
+    public void setTitle(@NonNull String title){
         mTitleView.setText(title);
     }
-
+    @Override
     public void setTitle(@StringRes int titleId){
         mTitleView.setText(titleId);
     }
-
-    protected void setBack(){
-        mToolbar.setNavigationIcon(R.drawable.back);
+    @Override
+    public void setBack(){
+//        mToolbar.setNavigationIcon(R.drawable.back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,17 +58,24 @@ public abstract class TitleBarActivity extends BaseActivity implements ITitleVie
         });
     }
 
+//    @Override
+//    public void hideBack() {
+////        mToolbar.setNavigationIcon(null);
+////        mToolbar.setNavigationOnClickListener(null);
+//    }
+
     /**
      * 设置
      * @param resId
      * @param onMenuItemClickListener
      */
-    protected void showRightMenu(@MenuRes int resId, Toolbar.OnMenuItemClickListener onMenuItemClickListener){
+    @Override
+    public void showRightMenu(@MenuRes int resId, Toolbar.OnMenuItemClickListener onMenuItemClickListener){
         mToolbar.inflateMenu(resId);
         mToolbar.setOnMenuItemClickListener(onMenuItemClickListener);
     }
-
-    protected void showRightMenu(@Nullable String txt, @Nullable int imageId, Toolbar.OnMenuItemClickListener onMenuItemClickListener){
+    @Override
+    public void showRightMenu(@Nullable String txt, @Nullable int imageId, Toolbar.OnMenuItemClickListener onMenuItemClickListener){
         if (mToolbar.getMenu()==null || mToolbar.getMenu().size()!=1){
             showRightMenu(R.menu.toolbar_menu,onMenuItemClickListener);
         }
@@ -77,8 +88,8 @@ public abstract class TitleBarActivity extends BaseActivity implements ITitleVie
             mToolbar.getMenu().getItem(0).setIcon(imageId);
 
     }
-
-    protected void hideRightMenu(){
+    @Override
+    public void hideRightMenu(){
         if (mToolbar.getMenu()!=null && mToolbar.getMenu().hasVisibleItems())
             mToolbar.getMenu().getItem(0).setVisible(false);
     }
