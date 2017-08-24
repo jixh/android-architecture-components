@@ -20,7 +20,7 @@ import com.android.example.github.repository.RepoRepository;
 import com.android.example.github.repository.UserRepository;
 import com.android.example.github.util.TestUtil;
 import com.android.example.github.vo.Repo;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 import com.android.example.github.vo.User;
 
 import org.junit.Before;

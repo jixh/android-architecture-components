@@ -35,7 +35,7 @@ import com.jktaihe.library.api.ApiResponse;
 import com.android.example.github.util.ApiUtil;
 import com.android.example.github.util.CountingAppExecutors;
 import com.android.example.github.util.InstantAppExecutors;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;

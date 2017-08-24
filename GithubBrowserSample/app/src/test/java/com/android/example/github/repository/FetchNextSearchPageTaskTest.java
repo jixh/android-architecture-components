@@ -23,7 +23,7 @@ import com.android.example.github.db.RepoDao;
 import com.android.example.github.util.TestUtil;
 import com.android.example.github.vo.Repo;
 import com.android.example.github.vo.RepoSearchResult;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;

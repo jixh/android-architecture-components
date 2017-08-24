@@ -22,7 +22,7 @@ import com.android.example.github.db.UserDao;
 import com.android.example.github.util.ApiUtil;
 import com.android.example.github.util.InstantAppExecutors;
 import com.android.example.github.util.TestUtil;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 import com.android.example.github.vo.User;
 
 import org.junit.Before;

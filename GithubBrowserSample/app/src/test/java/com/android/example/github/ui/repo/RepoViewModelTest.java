@@ -19,7 +19,7 @@ package com.android.example.github.ui.repo;
 import com.android.example.github.repository.RepoRepository;
 import com.android.example.github.vo.Contributor;
 import com.android.example.github.vo.Repo;
-import com.android.example.github.vo.Resource;
+import com.jktaihe.library.vo.Resource;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.Observer;
