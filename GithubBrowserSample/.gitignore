@@ -8,3 +8,5 @@ build/
 .externalNativeBuild
 app/build
 build
+daggerlibrary
+library/build
