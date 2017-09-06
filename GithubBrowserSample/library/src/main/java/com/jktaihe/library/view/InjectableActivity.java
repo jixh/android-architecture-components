@@ -1,8 +1,9 @@
-package com.android.example.github.ui;
+package com.jktaihe.library.view;
 
 import android.support.v4.app.Fragment;
-import com.jktaihe.library.view.BaseActivity;
+
 import javax.inject.Inject;
+
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 

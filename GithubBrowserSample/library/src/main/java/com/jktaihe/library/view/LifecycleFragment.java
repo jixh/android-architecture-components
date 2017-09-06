@@ -1,9 +1,7 @@
-package com.android.example.github.ui;
+package com.jktaihe.library.view;
 
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
-
-import com.jktaihe.library.view.TitleBarFragment;
 
 /**
  * Created by jktaihe on 7/6/17.

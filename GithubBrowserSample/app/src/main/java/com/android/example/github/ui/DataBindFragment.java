@@ -17,7 +17,11 @@ import com.android.example.github.binding.FragmentDataBindingComponent;
 import com.android.example.github.di.Injectable;
 import com.jktaihe.library.utils.AutoClearedValue;
 import com.jktaihe.library.utils.ClassUtils;
+import com.jktaihe.library.view.LifecycleFragment;
+
 import javax.inject.Inject;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by jktaihe on 7/6/17.
@@ -31,6 +35,7 @@ public abstract class DataBindFragment<M extends ViewModel, T extends ViewDataBi
     public DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     protected AutoClearedValue<T> binding;
     protected M viewModel;
+
 
     @Nullable
     @Override
@@ -56,5 +61,18 @@ public abstract class DataBindFragment<M extends ViewModel, T extends ViewDataBi
     @Override
     public int titleViewId() {
         return R.id.tv_title;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+
     }
 }

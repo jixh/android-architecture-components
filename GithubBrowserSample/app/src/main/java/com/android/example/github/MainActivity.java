@@ -17,8 +17,9 @@
 package com.android.example.github;
 
 
-import com.android.example.github.ui.InjectableActivity;
 import com.android.example.github.ui.common.NavigationController;
+import com.jktaihe.library.view.InjectableActivity;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import javax.inject.Inject;
